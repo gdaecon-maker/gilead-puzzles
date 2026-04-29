@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gilead Concept Puzzles</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #f5f4f0; padding: 40px 16px; }
+  .puzzle-section { margin: 0 auto 0 auto; max-width: 740px; }
+  .preamble-card { background: #fff; border-radius: 14px 14px 0 0; border: 0.5px solid rgba(0,0,0,0.12); border-bottom: none; padding: 24px 36px 16px 36px; margin-bottom: 0; }
+  .puzzle-title-pre { font-size: 15px; font-weight: 500; color: #2C2C2A; margin: 0 0 2px 0; }
+  .puzzle-byline { font-size: 11px; color: #888780; font-style: italic; margin: 0 0 10px 0; }
+  .preamble-rule { border: none; border-top: 0.5px solid rgba(0,0,0,0.2); margin: 8px 0; }
+  .preamble-text { font-size: 11px; color: #5F5E5A; line-height: 1.6; margin: 6px 0 0 0; }
+  .section-divider { border: none; border-top: 2px solid #d0cec8; margin: 48px auto; max-width: 740px; }
+  .card { background: #fff; border-radius: 0 0 14px 14px; border: 0.5px solid rgba(0,0,0,0.12); padding: 32px 36px 36px; width: 100%; }
+  .replay-btn { display: block; margin: 0 0 20px auto; font-size: 12px; font-weight: 600; font-family: inherit; color: #fff; background: #3a9e6e; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; letter-spacing: 0.03em; }
+  .replay-btn:hover { background: #2e8059; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .grid-area { display: flex; flex-direction: column; }
+  .puzzle-title { font-size: 15px; font-weight: 500; color: #2C2C2A; margin: 0 0 10px 0; }
+  .clue-panel { font-size: 12px; }
+  .clue-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888780; border-bottom: 0.5px solid rgba(0,0,0,0.15); padding-bottom: 4px; margin-bottom: 10px; }
+  .clue-row { display: grid; grid-template-columns: 20px 1fr; gap: 4px; margin-bottom: 7px; padding: 4px 6px; border-radius: 4px; transition: background 0.3s; }
+  .clue-num { font-weight: 600; color: #888780; font-size: 11px; padding-top: 1px; }
+  .clue-text { color: #888780; line-height: 1.5; font-size: 11px; }
+  .clue-row.active { background: #EEEDFE; }
+  .clue-row.active .clue-num { color: #534AB7; }
+  .clue-row.active .clue-text { color: #3C3489; }
+  .spacer { height: 35px; }
+  .row-group { transition: transform 0.9s cubic-bezier(0.4,0,0.2,1); }
+  .overflow-area { width: 100%; height: 44px; margin-top: 6px; display: flex; align-items: center; }
+  .overflow-label { font-size: 12px; font-weight: 700; color: #2C2C2A; white-space: nowrap; flex-shrink: 0; }
+  .overflow-phrase-wrap { position: relative; flex: 1; height: 100%; }
+  .phrase-reveal { font-size: 12px; font-weight: 600; color: #2C2C2A; opacity: 0; letter-spacing: 0.04em; white-space: nowrap; position: absolute; left: 0; top: 50%; transform: translateY(-50%); transition: opacity 0.5s; }
+  .float-letter { font-size: 12px; font-weight: 600; opacity: 0; position: absolute; top: 50%; transform: translateY(-50%); font-family: inherit; transition: opacity 0.4s; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+<div class="puzzle-section" id="puzzle-1">
+<div class="preamble-card">
+  <p class="puzzle-title-pre">Concept puzzle 1: Stock Phrases</p>
+  <p class="puzzle-byline">by Gilead</p>
+  <hr class="preamble-rule">
+  <p class="preamble-text">The answer to each clue represents a stock in your capacious investment portfolio. Some stocks are currently being shorted (the answer must lose its final letter before going in the grid); some are showing good returns (the answers must be inserted in the grid backwards); and the rest are overextended (the answer acquires an additional letter at the end before going in the grid).</p>
+</div>
+<div class="card">
+  <button class="replay-btn" onclick="window._replay1()">Replay ↺</button>
+  <div class="layout">
+
+    <div class="grid-area">
+      <p style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; font-size:15px; font-weight:500; color:#2C2C2A; margin:0 0 10px 0;">Gilead sample puzzle 1: Stock phrases</p>
+      <!--
+        13x13 grid, each cell = 20px. Total = 260x260.
+
+        GROVEL: down clue, column 3 (x=60–80).
+          G row0 y=10, R row1 y=30, O row2 y=50, V row3 y=70, E row4 y=90, L row5 y=110.
+          The slot is only 5 cells deep (rows 0–4, y=0–100), so L overflows.
+          L appears in the cell below (row5, y=100–120, centre y=110) then fades
+          out as it drops to the overflow area.
+          NO extra barrier is drawn — the existing grid line at y=100 serves.
+
+        ABUT (TUBA reversed): across, row3 (y=60–80).
+          Cells col6–col9: centres x=130,150,170,190.
+          Barrier on the RIGHT of col9 cell = x=200, y=60–80.
+          This barrier is present FROM THE START (static SVG element, always visible).
+
+        HEROINE: across, row6 (y=120–140).
+          H col0 x=10, E col1 x=30, R col2 x=50, O col3 x=70,
+          I col4 x=90, N col5 x=110, E(extra) col6 x=130.
+          The existing barrier in the original grid was after col5 (x=120).
+          We shift it one cell right: after col6 (x=140).
+          x=140 is already a thin grid line — we overlay a thick barrier there.
+          So bar-heroin-right: x1=140 y1=120 x2=140 y2=140 (shown from start,
+          replacing the old barrier at x=120 for this row — but x=120 barrier
+          is a general grid barrier we keep; the word just extends one more cell).
+
+        OVERFLOW positions for fl-L and fl-E:
+          Phrase: "PLAYING FTSE" at font-size 12px letter-spacing 0.04em.
+          Approximate char widths at 12px ≈ 7.5px each with spacing.
+          P=0  L=7.5  A=15  Y=22.5  I=30  N=37.5  G=45  ' '=52.5
+          F=60  T=67.5  S=75  E=82.5
+          So fl-L left≈7px, fl-E left≈82px.
+          These are set as static positions; letters fade in/out in place.
+          Phrase fades in at same position, its L and E align exactly.
+      -->
+      <svg id="maingrid" width="100%" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- highlights (behind everything) -->
+        <rect id="hl-grovel" x="60"  y="0"   width="20"  height="120" fill="#EEEDFE" opacity="0"/>
+        <rect id="hl-tuba"   x="120" y="60"  width="80"  height="20"  fill="#EEEDFE" opacity="0"/>
+        <rect id="hl-heroin" x="0"   y="120" width="140" height="20"  fill="#EEEDFE" opacity="0"/>
+
+        <!-- outer border -->
+        <rect x="0" y="0" width="260" height="260" fill="none" stroke="#2C2C2A" stroke-width="1.5"/>
+
+        <!-- thin grid lines -->
+        <line x1="20"  y1="0" x2="20"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="40"  y1="0" x2="40"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="60"  y1="0" x2="60"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="80"  y1="0" x2="80"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="100" y1="0" x2="100" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="120" y1="0" x2="120" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="140" y1="0" x2="140" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="160" y1="0" x2="160" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="180" y1="0" x2="180" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="200" y1="0" x2="200" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="220" y1="0" x2="220" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="240" y1="0" x2="240" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="20"  x2="260" y2="20"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="40"  x2="260" y2="40"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="60"  x2="260" y2="60"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="80"  x2="260" y2="80"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="120" x2="260" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="140" x2="260" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="160" x2="260" y2="160" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="180" x2="260" y2="180" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="200" x2="260" y2="200" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="220" x2="260" y2="220" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="240" x2="260" y2="240" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- ═══ STATIC BARRIER LINES (present from the start) ═══ -->
+        <line x1="60"  y1="0"   x2="60"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="0"   x2="140" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="20"  x2="20"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="20"  x2="120" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="20"  x2="200" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="40"  x2="80"  y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="40"  x2="180" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="40"  x2="120" y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="60"  x2="60"  y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="60"  x2="240" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="60"  x2="120" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="80"  x2="100" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="80"  x2="180" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="80"  x2="40"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="80"  x2="220" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- ABUT right barrier — present from start, right edge of col9 cell -->
+        <line x1="200" y1="60"  x2="200" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="100" x2="100" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="100" x2="180" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="100" x2="80"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="100" x2="180" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="120" x2="20"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="120" x2="220" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- HEROINE right barrier — one cell right of where it was, right edge of col6 cell (x=140) -->
+        <line x1="140" y1="120" x2="140" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="140" x2="60"  y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="140" x2="180" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="140" x2="120" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="160" x2="40"  y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="160" x2="200" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="160" x2="140" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="180" x2="80"  y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="180" x2="180" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="180" x2="140" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="180" x2="40"  y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="200" x2="120" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="200" x2="20"  y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="200" x2="200" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="200" x2="80"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="200" x2="180" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="220" x2="80"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="220" x2="180" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="220" x2="120" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="240" x2="40"  y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="240" x2="180" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="240" x2="120" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="240" x2="200" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!-- ═══ ANIMATED LETTERS ═══ -->
+
+        <!-- GROVEL: down col3, rows 0–5, centres x=70, y=10,30,50,70,90,110 -->
+        <text id="g-G" x="70" y="10"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">G</text>
+        <text id="g-R" x="70" y="30"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">R</text>
+        <text id="g-O" x="70" y="50"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">O</text>
+        <text id="g-V" x="70" y="70"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">V</text>
+        <text id="g-E" x="70" y="90"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">E</text>
+        <!-- L appears in the overflow cell (row5, y=100–120, centre y=110), then fades as it moves to overflow -->
+        <text id="g-L" x="70" y="110" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">L</text>
+
+        <!-- ABUT (TUBA reversed): across row3, cols 6–9, centres y=70, x=130,150,170,190
+             Initial display is T U B A, then reversed to A B U T -->
+        <text id="g-A1" x="130" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">T</text>
+        <text id="g-B1" x="150" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">U</text>
+        <text id="g-U1" x="170" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">B</text>
+        <text id="g-T1" x="190" y="70" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">A</text>
+
+        <!-- HEROINE: across row6, cols 0–6, centres y=130, x=10,30,50,70,90,110,130 -->
+        <text id="g-H"    x="10"  y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">H</text>
+        <text id="g-E2"   x="30"  y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">E</text>
+        <text id="g-R2"   x="50"  y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">R</text>
+        <text id="g-O2"   x="70"  y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">O</text>
+        <text id="g-I"    x="90"  y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">I</text>
+        <text id="g-N"    x="110" y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">N</text>
+        <!-- extra E in col6, centre x=130 — directly next to N, red, stays in grid permanently -->
+        <text id="g-Eadd" x="130" y="130" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#D85A30" opacity="0">E</text>
+
+      </svg>
+
+      <!--
+        Overflow area. All positions are FIXED — nothing moves after appearing.
+        Phrase "PLAYING FTSE" at font-size 12px letter-spacing 0.04em.
+        Measuring rendered positions by character index in the string:
+          "PLAYING FTSE"
+           0123456789...
+          P at 0px
+          L at ~8px   ← fl-L lands here
+          A at ~16px
+          Y at ~24px
+          I at ~32px
+          N at ~40px
+          G at ~48px
+          ' ' at ~56px
+          F at ~63px
+          T at ~71px
+          S at ~79px
+          E at ~87px  ← fl-E lands here
+
+        fl-L: left=8px, color purple
+        fl-E: left=87px, color orange/red
+
+        The overflow area has:
+        1. A static bold "Secret message:" label always visible.
+        2. A phrase-reveal "PLAYING FTSE" that fades in next to it.
+        3. fl-L and fl-E positioned to match L and E in the rendered phrase.
+
+        "Secret message: " at font-size 12px bold ≈ 96px wide (measured).
+        Then "PLAYING FTSE" starts at left≈96px.
+        Within "PLAYING FTSE" at 12px letter-spacing 0.04em, each char ≈ 8px:
+          P=0  L=8  A=16  Y=24  I=32  N=40  G=48  ' '=56  F=63  T=71  S=79  E=87
+        So fl-L sits at 96+8  = 104px from left of overflow-area
+           fl-E sits at 96+87 = 183px from left of overflow-area
+      -->
+      <div class="overflow-area">
+        <span class="overflow-label">Secret message:&nbsp;</span>
+        <span class="overflow-phrase-wrap">
+          <span id="fl-L" class="float-letter" style="left:8px;  color:#534AB7;">L</span>
+          <span id="fl-E" class="float-letter" style="left:87px; color:#D85A30;">E</span>
+          <span id="phrase-el" class="phrase-reveal">P<span style="color:#534AB7">L</span>AYING FTS<span style="color:#D85A30">E</span></span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Clue panel -->
+    <div class="clue-panel">
+      <div style="height:35px;"></div>
+      <div class="clue-label">Across</div>
+      <div class="clue-row" id="clue-tuba">
+        <span class="clue-num">4</span>
+        <span class="clue-text">Lorem ipsum dolor sit amet (4)</span>
+      </div>
+      <div class="clue-row" id="clue-heroin">
+        <span class="clue-num">9</span>
+        <span class="clue-text">Consectetur adipiscing elit eiusmod (6)</span>
+      </div>
+      <div class="clue-label" style="margin-top:14px;">Down</div>
+      <div class="clue-row" id="clue-grovel">
+        <span class="clue-num">2</span>
+        <span class="clue-text">Adipiscing elit sed do tempor (6)</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<hr class="section-divider">
+<div class="puzzle-section" id="puzzle-2">
+<div class="preamble-card">
+  <p class="puzzle-title-pre">Concept puzzle 2: Big Mac Index</p>
+  <p class="puzzle-byline">by Gilead</p>
+  <hr class="preamble-rule">
+  <p class="preamble-text">This publication is a world-renowned authority on club-sandwich hamburgers, but occasionally even its knowledge fails it. For instance, multiple rows of this crossword conceal essential components of a Big Mac, but not necessarily in the correct order.<br><br>Once they all have been found, rearrange those rows so that the components are in the correct order, and all lined up symmetrically in the middle of the grid. (For the purposes of this step, consider the grid to function like a cylinder, with any cells pushed off the right of the grid immediately reappearing on the grid's left.)<br><br>If the Big Mac has been constructed correctly a message can be read down the first and last columns of those rows.</p>
+</div>
+<div class="card">
+  <button class="replay-btn" onclick="window._replay2()">Replay ↺</button>
+  <div class="layout">
+    <div class="grid-area">
+      <svg id="maingrid" width="100%" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="grid-clip">
+            <rect x="0" y="0" width="260" height="260"/>
+          </clipPath>
+        </defs>
+        <g clip-path="url(#grid-clip)">
+
+        <!-- outer border -->
+        <rect x="0" y="0" width="260" height="260" fill="#fff" stroke="#2C2C2A" stroke-width="1.5"/>
+
+        <!-- thin grid lines vertical -->
+        <line x1="20"  y1="0" x2="20"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="40"  y1="0" x2="40"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="60"  y1="0" x2="60"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="80"  y1="0" x2="80"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="100" y1="0" x2="100" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="120" y1="0" x2="120" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="140" y1="0" x2="140" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="160" y1="0" x2="160" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="180" y1="0" x2="180" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="200" y1="0" x2="200" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="220" y1="0" x2="220" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="240" y1="0" x2="240" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- thin grid lines horizontal -->
+        <line x1="0" y1="20"  x2="260" y2="20"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="40"  x2="260" y2="40"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="60"  x2="260" y2="60"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="80"  x2="260" y2="80"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="120" x2="260" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="140" x2="260" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="160" x2="260" y2="160" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="180" x2="260" y2="180" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="200" x2="260" y2="200" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="220" x2="260" y2="220" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="240" x2="260" y2="240" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- barrier lines — word boundaries only, per row -->
+        <!-- Row 0: /EXPAT/TYPOS/ — left of E(col0)=x0, right of T(col4)=x100, right of S(col9)=x200 -->
+        <line x1="0"   y1="0"   x2="0"   y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="0"   x2="100" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="0"   x2="200" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 2: /OWLET/T/U/CENT — left of O(col1)=x20, right of T(col5)=x120, right of T(col6)=x140, right of U(col7)=x160, right of T(col11)=x240 (no opening /) -->
+        <line x1="20"  y1="40"  x2="20"  y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="40"  x2="120" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="40"  x2="140" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="40"  x2="160" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="40"  x2="240" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 4: /CARBUNCLE/ — left of C(col2)=x40, right of E(col10)=x220 -->
+        <line x1="40"  y1="80"  x2="40"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="80"  x2="220" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 6: /LIMB/UNDONE/ — left of L(col0)=x0, right of B(col3)=x80, right of E(col9)=x200 -->
+        <line x1="0"   y1="120" x2="0"   y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="120" x2="80"  y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="120" x2="200" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 8: ZEBU/NICE — right of U(col5)=x120 only -->
+        <line x1="120" y1="160" x2="120" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 10: /PATTYPAN/ — left of P(col5)=x100, right edge is grid border (x=260) -->
+        <line x1="100" y1="200" x2="100" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 12: /SAUCER/ — left of S(col4)=x80, right of R(col9)=x200 -->
+        <line x1="80"  y1="240" x2="80"  y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="240" x2="200" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!--
+          Row groups. Each <g> contains highlight rects (initially opacity=0)
+          and letter texts. The group is translated during the slide animation.
+          Group id = rg-N where N is the entry row index.
+          Group transform-origin is top of that row.
+          All coordinates are absolute (no local offset) — the g is not offset.
+        -->
+
+        <!-- Row 0: EXPAT|TYPOS — PATTY highlighted -->
+        <g id="rg-0" class="row-group">
+          <rect id="hl-0-2" x="40"  y="0" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-0-3" x="60"  y="0" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-0-4" x="80"  y="0" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-0-5" x="100" y="0" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-0-6" x="120" y="0" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <text x="10"  y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+          <text x="30"  y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">X</text>
+          <text x="50"  y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">P</text>
+          <text x="70"  y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="90"  y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="110" y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="130" y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">Y</text>
+          <text x="150" y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">P</text>
+          <text x="170" y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">O</text>
+          <text x="190" y="10" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">S</text>
+        </g>
+
+        <!-- Row 2: OWLET|T|U|CENT — LETTUCE: L(3)E(4)T(5)T(6)U(7)C(8)E(9) -->
+        <g id="rg-2" class="row-group">
+          <rect id="hl-2-3" x="60"  y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-4" x="80"  y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-5" x="100" y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-6" x="120" y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-7" x="140" y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-8" x="160" y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <rect id="hl-2-9" x="180" y="40" width="20" height="20" fill="#B8D98A" opacity="0"/>
+          <text x="30"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">O</text>
+          <text x="50"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">W</text>
+          <text x="70"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">L</text>
+          <text x="90"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+          <text x="110" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="130" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="150" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">U</text>
+          <text x="170" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="190" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+          <text x="210" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="230" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+        </g>
+
+        <!-- Row 4: CARBUNCLE — BUN: B(5)U(6)N(7) -->
+        <g id="rg-4" class="row-group">
+          <rect id="hl-4-5" x="100" y="80" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-4-6" x="120" y="80" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-4-7" x="140" y="80" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <text x="50"  y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="70"  y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="90"  y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">R</text>
+          <text x="110" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">B</text>
+          <text x="130" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">U</text>
+          <text x="150" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="170" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="190" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">L</text>
+          <text x="210" y="90" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+        </g>
+
+        <!-- Row 6: LIMB|UNDONE — BUN: B(3)U(4)N(5) -->
+        <g id="rg-6" class="row-group">
+          <rect id="hl-6-3" x="60"  y="120" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-6-4" x="80"  y="120" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-6-5" x="100" y="120" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <text x="10"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">L</text>
+          <text x="30"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">I</text>
+          <text x="50"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">M</text>
+          <text x="70"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">B</text>
+          <text x="90"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">U</text>
+          <text x="110" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="130" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">D</text>
+          <text x="150" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">O</text>
+          <text x="170" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="190" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+        </g>
+
+        <!-- Row 8: ZEBU|NICE — BUN: B(4)U(5)N(6) -->
+        <g id="rg-8" class="row-group">
+          <rect id="hl-8-4" x="80"  y="160" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-8-5" x="100" y="160" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <rect id="hl-8-6" x="120" y="160" width="20" height="20" fill="#D4A96A" opacity="0"/>
+          <text x="50"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">Z</text>
+          <text x="70"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+          <text x="90"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">B</text>
+          <text x="110" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">U</text>
+          <text x="130" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="150" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">I</text>
+          <text x="170" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="190" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+        </g>
+
+        <!-- Row 10: PATTYPAN — PATTY: P(5)A(6)T(7)T(8)Y(9) -->
+        <g id="rg-10" class="row-group">
+          <rect id="hl-10-5" x="100" y="200" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-10-6" x="120" y="200" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-10-7" x="140" y="200" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-10-8" x="160" y="200" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <rect id="hl-10-9" x="180" y="200" width="20" height="20" fill="#C8865A" opacity="0"/>
+          <text x="110" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">P</text>
+          <text x="130" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="150" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="170" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">T</text>
+          <text x="190" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">Y</text>
+          <text x="210" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">P</text>
+          <text x="230" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="250" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+        </g>
+
+        <!-- Row 12: SAUCER — SAUCE: S(4)A(5)U(6)C(7)E(8) -->
+        <g id="rg-12" class="row-group">
+          <rect id="hl-12-4" x="80"  y="240" width="20" height="20" fill="#F4A0A0" opacity="0"/>
+          <rect id="hl-12-5" x="100" y="240" width="20" height="20" fill="#F4A0A0" opacity="0"/>
+          <rect id="hl-12-6" x="120" y="240" width="20" height="20" fill="#F4A0A0" opacity="0"/>
+          <rect id="hl-12-7" x="140" y="240" width="20" height="20" fill="#F4A0A0" opacity="0"/>
+          <rect id="hl-12-8" x="160" y="240" width="20" height="20" fill="#F4A0A0" opacity="0"/>
+          <text x="90"  y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">S</text>
+          <text x="110" y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="130" y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">U</text>
+          <text x="150" y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="170" y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+          <text x="190" y="250" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">R</text>
+        </g>
+
+        <!-- LUNCHIS down col 0, NOTFREE down col 12, rows 4-10. Hidden initially, revealed after animation. -->
+        <!-- Row 4: L, N -->
+        <text id="dn-4-0"  x="10"  y="90"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">L</text>
+        <text id="dn-4-12" x="250" y="90"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">N</text>
+        <!-- Row 5: U, O -->
+        <text id="dn-5-0"  x="10"  y="110" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">U</text>
+        <text id="dn-5-12" x="250" y="110" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">O</text>
+        <!-- Row 6: N, T -->
+        <text id="dn-6-0"  x="10"  y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">N</text>
+        <text id="dn-6-12" x="250" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">T</text>
+        <!-- Row 7: C, F -->
+        <text id="dn-7-0"  x="10"  y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">C</text>
+        <text id="dn-7-12" x="250" y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">F</text>
+        <!-- Row 8: H, R -->
+        <text id="dn-8-0"  x="10"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">H</text>
+        <text id="dn-8-12" x="250" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">R</text>
+        <!-- Row 9: I, E -->
+        <text id="dn-9-0"  x="10"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">I</text>
+        <text id="dn-9-12" x="250" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">E</text>
+        <!-- Row 10: S, E -->
+        <text id="dn-10-0"  x="10"  y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">S</text>
+        <text id="dn-10-12" x="250" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#534AB7" opacity="0">E</text>
+
+        </g>
+
+        <!-- outer border drawn OUTSIDE clip so it's always fully visible -->
+        <rect x="0" y="0" width="260" height="260" fill="none" stroke="#2C2C2A" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <div class="clue-panel">
+      <div class="spacer"></div>
+      <div class="clue-label">Across</div>
+      <div class="clue-row"><span class="clue-num">1</span><span class="clue-text">Lorem ipsum dolor sit amet consectetur (5,6)</span></div>
+      <div class="clue-row"><span class="clue-num">7</span><span class="clue-text">Adipiscing elit sed do eiusmod tempor (6,1,1,5)</span></div>
+      <div class="clue-row"><span class="clue-num">10</span><span class="clue-text">Incididunt ut labore et dolore magna (9)</span></div>
+      <div class="clue-row"><span class="clue-num">13</span><span class="clue-text">Aliqua ut enim ad minim veniam (4,6)</span></div>
+      <div class="clue-row"><span class="clue-num">17</span><span class="clue-text">Quis nostrud exercitation ullamco laboris (4,4)</span></div>
+      <div class="clue-row"><span class="clue-num">21</span><span class="clue-text">Commodo consequat duis aute irure dolor (8)</span></div>
+      <div class="clue-row"><span class="clue-num">25</span><span class="clue-text">Reprehenderit voluptate velit esse cillum (6)</span></div>
+    </div>
+  </div>
+</div>
+</div>
+<hr class="section-divider">
+<div class="puzzle-section" id="puzzle-3">
+<div class="preamble-card">
+  <p class="puzzle-title-pre">Concept puzzle 3: Leader Lines</p>
+  <p class="puzzle-byline">by Gilead</p>
+  <hr class="preamble-rule">
+  <p class="preamble-text">There are five squares where the letter suggested by the across clue is in conflict with the letter suggested by the down clue. Putting both letters in each square (in the correct order) will reveal a ten letter theme word.<br><br>Lines drawn between pairs of letters will highlight additional words of relevance to that theme word.</p>
+</div>
+<div class="card">
+  <button class="replay-btn" onclick="window._replay3()">Replay ↺</button>
+  <div class="layout">
+    <div class="grid-area">
+      <svg id="maingrid" width="100%" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="260" fill="#fff" stroke="#2C2C2A" stroke-width="1.5"/>
+        <!-- thin grid lines vertical -->
+        <line x1="20"  y1="0" x2="20"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="40"  y1="0" x2="40"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="60"  y1="0" x2="60"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="80"  y1="0" x2="80"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="100" y1="0" x2="100" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="120" y1="0" x2="120" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="140" y1="0" x2="140" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="160" y1="0" x2="160" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="180" y1="0" x2="180" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="200" y1="0" x2="200" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="220" y1="0" x2="220" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="240" y1="0" x2="240" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <!-- thin grid lines horizontal -->
+        <line x1="0" y1="20"  x2="260" y2="20"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="40"  x2="260" y2="40"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="60"  x2="260" y2="60"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="80"  x2="260" y2="80"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="120" x2="260" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="140" x2="260" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="160" x2="260" y2="160" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="180" x2="260" y2="180" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="200" x2="260" y2="200" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="220" x2="260" y2="220" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="240" x2="260" y2="240" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <!-- barrier lines -->
+        <line x1="60"  y1="0"   x2="60"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="0"   x2="160" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="20"  x2="20"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="20"  x2="120" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="20"  x2="220" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="20"  x2="80"  y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="20"  x2="200" y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="40"  x2="20"  y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="40"  x2="140" y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="40"  x2="40"  y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="40"  x2="180" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="60"  x2="80"  y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="60"  x2="220" y2="60"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="60"  x2="120" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="60"  x2="240" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="80"  x2="20"  y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="80"  x2="100" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="80"  x2="220" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="80"  x2="60"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="80"  x2="180" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="20"  y1="100" x2="40"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="100" x2="160" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="100" x2="260" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="100" x2="100" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="100" x2="220" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="120" x2="20"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="120" x2="80"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="120" x2="200" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="120" x2="40"  y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="120" x2="160" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="140" x2="100" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="140" x2="240" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="140" x2="120" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="160" x2="20"  y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="160" x2="80"  y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="160" x2="220" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="160" x2="40"  y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="160" x2="180" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="180" x2="20"  y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="180" x2="120" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="180" x2="260" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="180" x2="60"  y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="180" x2="200" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="20"  y1="200" x2="40"  y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="200" x2="160" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="200" x2="100" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="200" x2="240" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="220" x2="20"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="220" x2="80"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="220" x2="200" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="220" x2="40"  y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="220" x2="160" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="240" x2="100" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="240" x2="220" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="20"  y1="240" x2="20"  y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="240" x2="140" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="240" x2="240" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!--
+          5 letter-pair cells. Each is a <g> with opacity=0, faded in by JS.
+          Cell positions (rect top-left x, y):
+            1. col3 row1: x=60, y=20  → P/R
+            2. col6 row5: x=120, y=100 → E/S
+            3. col2 row6: x=40, y=120  → I/D
+            4. col9 row9: x=180, y=180 → E/N
+            5. col6 row10: x=120, y=200 → T/S
+          Each cell centre: x+10, y+10
+          Layout inside cell: top letter (y-4), slash (y+1 at slight angle), bottom letter (y+6)
+          Font size 7px to fit two letters + slash in 20px cell
+        -->
+
+        <!-- Pair 1: P/R at col3 row1 (cell x=60, y=20) -->
+        <g id="pair-1" opacity="0">
+          <rect x="60" y="20" width="20" height="20" fill="#FFEEEE"/>
+          <text x="64" y="25" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">P</text>
+          <text x="76" y="37" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">R</text>
+        </g>
+
+        <!-- Pair 2: E/S at col6 row5 (cell x=120, y=100) -->
+        <g id="pair-2" opacity="0">
+          <rect x="120" y="100" width="20" height="20" fill="#FFEEEE"/>
+          <text x="124" y="105" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">E</text>
+          <text x="136" y="117" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">S</text>
+        </g>
+
+        <!-- Pair 3: I/D at col2 row6 (cell x=40, y=120) -->
+        <g id="pair-3" opacity="0">
+          <rect x="40" y="120" width="20" height="20" fill="#FFEEEE"/>
+          <text x="44" y="125" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">I</text>
+          <text x="56" y="137" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">D</text>
+        </g>
+
+        <!-- Pair 4: E/N at col9 row9 (cell x=180, y=180) -->
+        <g id="pair-4" opacity="0">
+          <rect x="180" y="180" width="20" height="20" fill="#FFEEEE"/>
+          <text x="184" y="185" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">E</text>
+          <text x="196" y="197" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">N</text>
+        </g>
+
+        <!-- Pair 5: T/S at col6 row10 (cell x=120, y=200) -->
+        <g id="pair-5" opacity="0">
+          <rect x="120" y="200" width="20" height="20" fill="#FFEEEE"/>
+          <text x="124" y="205" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">T</text>
+          <text x="136" y="217" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700" font-family="-apple-system,sans-serif" fill="#CC0000">S</text>
+        </g>
+
+        <!-- Yellow highlights for letter cells, shown all at once after all letters appear -->
+        <g id="yellow-highlights" opacity="0">
+          <!-- BR row2 -->
+          <rect x="60"  y="40"  width="20" height="20" fill="#FFE066"/>
+          <rect x="80"  y="40"  width="20" height="20" fill="#FFE066"/>
+          <!-- AZ row3 -->
+          <rect x="80"  y="60"  width="20" height="20" fill="#FFE066"/>
+          <rect x="100" y="60"  width="20" height="20" fill="#FFE066"/>
+          <!-- IL row4 -->
+          <rect x="100" y="80"  width="20" height="20" fill="#FFE066"/>
+          <rect x="120" y="80"  width="20" height="20" fill="#FFE066"/>
+          <!-- FR row6 -->
+          <rect x="120" y="120" width="20" height="20" fill="#FFE066"/>
+          <rect x="140" y="120" width="20" height="20" fill="#FFE066"/>
+          <!-- AN row7 -->
+          <rect x="140" y="140" width="20" height="20" fill="#FFE066"/>
+          <rect x="160" y="140" width="20" height="20" fill="#FFE066"/>
+          <!-- CE row8 -->
+          <rect x="160" y="160" width="20" height="20" fill="#FFE066"/>
+          <rect x="180" y="160" width="20" height="20" fill="#FFE066"/>
+          <!-- NI row7 -->
+          <rect x="40"  y="140" width="20" height="20" fill="#FFE066"/>
+          <rect x="60"  y="140" width="20" height="20" fill="#FFE066"/>
+          <!-- GE row8 -->
+          <rect x="60"  y="160" width="20" height="20" fill="#FFE066"/>
+          <rect x="80"  y="160" width="20" height="20" fill="#FFE066"/>
+          <!-- RI row9 -->
+          <rect x="80"  y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="100" y="180" width="20" height="20" fill="#FFE066"/>
+          <!-- A row10 -->
+          <rect x="100" y="200" width="20" height="20" fill="#FFE066"/>
+        </g>
+
+        <!-- Letter groups, hidden initially, faded in after pairs -->
+        <g id="letters-1" opacity="0">
+          <text x="70"  y="50"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">B</text>
+          <text x="90"  y="50"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">R</text>
+        </g>
+        <g id="letters-2" opacity="0">
+          <text x="90"  y="70"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="110" y="70"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">Z</text>
+        </g>
+        <g id="letters-3" opacity="0">
+          <text x="110" y="90"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">I</text>
+          <text x="130" y="90"  text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">L</text>
+        </g>
+        <g id="letters-4" opacity="0">
+          <text x="130" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">F</text>
+          <text x="150" y="130" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">R</text>
+        </g>
+        <g id="letters-5" opacity="0">
+          <text x="150" y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+          <text x="170" y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+        </g>
+        <g id="letters-6" opacity="0">
+          <text x="170" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">C</text>
+          <text x="190" y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+        </g>
+        <g id="letters-7" opacity="0">
+          <text x="50"  y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">N</text>
+          <text x="70"  y="150" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">I</text>
+        </g>
+        <g id="letters-8" opacity="0">
+          <text x="70"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">G</text>
+          <text x="90"  y="170" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">E</text>
+        </g>
+        <g id="letters-9" opacity="0">
+          <text x="90"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">R</text>
+          <text x="110" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">I</text>
+        </g>
+        <g id="letters-10" opacity="0">
+          <text x="110" y="210" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A">A</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <div class="clue-panel">
+      <div class="spacer"></div>
+      <div class="clue-label">Across</div>
+      <div class="clue-row"><span class="clue-num">1</span><span class="clue-text">Lorem ipsum dolor sit amet (4,5)</span></div>
+      <div class="clue-row"><span class="clue-num">7</span><span class="clue-text">Adipiscing elit sed do tempor (3)</span></div>
+      <div class="clue-row"><span class="clue-num">10</span><span class="clue-text">Incididunt ut labore dolore magna (6)</span></div>
+      <div class="clue-row"><span class="clue-num">13</span><span class="clue-text">Aliqua ut enim ad minim (4)</span></div>
+      <div class="clue-row"><span class="clue-num">15</span><span class="clue-text">Nostrud exercitation ullamco laboris nisi (5)</span></div>
+      <div class="clue-label" style="margin-top:14px;">Down</div>
+      <div class="clue-row"><span class="clue-num">1</span><span class="clue-text">Lorem ipsum dolor sit amet (4)</span></div>
+      <div class="clue-row"><span class="clue-num">2</span><span class="clue-text">Adipiscing elit sed eiusmod tempor (5)</span></div>
+      <div class="clue-row"><span class="clue-num">3</span><span class="clue-text">Incididunt ut labore et dolore (6)</span></div>
+      <div class="clue-row"><span class="clue-num">4</span><span class="clue-text">Aliqua ut enim ad minim (3)</span></div>
+    </div>
+  </div>
+</div>
+</div>
+<hr class="section-divider">
+<div class="puzzle-section" id="puzzle-4">
+<div class="preamble-card">
+  <p class="puzzle-title-pre">Concept puzzle 4: Black Boxes</p>
+  <p class="puzzle-byline">by Gilead</p>
+  <hr class="preamble-rule">
+  <p class="preamble-text">In order to make some of the answers fit into the grid, the same pair of letters will need to be squeezed into a single square each time it appears. Blacking those squares out once the grid has been completed will draw your attention to phrases that lie between them, of relevance to the puzzle's overall theme.</p>
+</div>
+<div class="card">
+  <button class="replay-btn" onclick="window._replay4()">Replay ↺</button>
+  <div class="layout">
+    <div class="grid-area">
+      <!--
+        13x13 grid. Cell=20px. Total 260x260.
+        Row 3 (idx 2, y=40-60): M(0) AI(1) A(2) R(3) | E(4) | T(5) H(6) E(7) | Y(8) AI(9) R(10) |
+          Barriers after col3 (x=80), col4 (x=100), col7 (x=160), col10 (x=220)
+        Row 10 (idx 9, y=180-200): F(0) AI(1) T(2) H(3) | I(4) N(5) K(6) | I(7) | N(8) | G(9) AI(10) N(11) |
+          Barriers after col3 (x=80), col6 (x=140), col7 (x=160), col8 (x=180), col11 (x=240)
+        Yellow highlights (after blackout):
+          Row 3 cols 2-8: A R E T H E Y
+          Row 10 cols 2-9: T H I N K I N G
+      -->
+      <svg width="100%" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="260" height="260" fill="#fff" stroke="#2C2C2A" stroke-width="1.5"/>
+
+        <!-- thin grid lines vertical -->
+        <line x1="20"  y1="0" x2="20"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="40"  y1="0" x2="40"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="60"  y1="0" x2="60"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="80"  y1="0" x2="80"  y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="100" y1="0" x2="100" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="120" y1="0" x2="120" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="140" y1="0" x2="140" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="160" y1="0" x2="160" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="180" y1="0" x2="180" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="200" y1="0" x2="200" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="220" y1="0" x2="220" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="240" y1="0" x2="240" y2="260" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- thin grid lines horizontal -->
+        <line x1="0" y1="20"  x2="260" y2="20"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="40"  x2="260" y2="40"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="60"  x2="260" y2="60"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="80"  x2="260" y2="80"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="100" x2="260" y2="100" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="120" x2="260" y2="120" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="140" x2="260" y2="140" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="160" x2="260" y2="160" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="180" x2="260" y2="180" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="200" x2="260" y2="200" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="220" x2="260" y2="220" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="240" x2="260" y2="240" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- sparse barrier lines (not on entry rows 2 or 9) -->
+        <line x1="0"   y1="80"  x2="20"  y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="100" x2="20"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="20"  y1="120" x2="40"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="100" x2="60"  y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="20"  x2="80"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="60"  y1="120" x2="80"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="20"  x2="100" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="160" x2="100" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="20"  x2="120" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="100" x2="140" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="220" x2="140" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="20"  x2="160" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="120" x2="160" y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="240" x2="160" y2="240" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="80"  x2="180" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="160" x2="180" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="220" x2="180" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="100" x2="200" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="220" x2="200" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="180" x2="220" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="220" x2="220" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="140" x2="240" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="220" x2="240" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="80"  x2="260" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="160" x2="260" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="20"  y1="200" x2="20"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="20"  x2="40"  y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="40"  y1="120" x2="40"  y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="0"   x2="80"  y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="80"  x2="80"  y2="120" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="80"  y1="220" x2="80"  y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="60"  x2="100" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="20"  x2="120" y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="100" x2="120" y2="140" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="120" y1="260" x2="120" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="120" x2="140" y2="160" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="220" x2="140" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="0"   x2="160" y2="20"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="60"  x2="180" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="160" x2="180" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="80"  x2="200" y2="100" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="200" y1="200" x2="200" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="0"   x2="220" y2="40"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="60"  x2="240" y2="80"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="160" x2="240" y2="180" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="260" x2="240" y2="260" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!-- word-break barriers — entry rows only, no extras -->
+        <!-- Row 3: after col3(x=80), col4(x=100), col7(x=160), col10(x=220) -->
+        <line x1="80"  y1="40" x2="80"  y2="60" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="100" y1="40" x2="100" y2="60" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="40" x2="160" y2="60" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="40" x2="220" y2="60" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- Row 10: after col3(x=80), col6(x=140), col7(x=160), col8(x=180), col11(x=240) -->
+        <line x1="80"  y1="180" x2="80"  y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="140" y1="180" x2="140" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="160" y1="180" x2="160" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="180" y1="180" x2="180" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="240" y1="180" x2="240" y2="200" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!-- Yellow highlight rects (hidden initially, shown after blackout) -->
+        <!-- Row 3 cols 2-8: A R E T H E Y -->
+        <g id="hl-r2" opacity="0">
+          <rect x="40"  y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="60"  y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="80"  y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="100" y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="120" y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="140" y="40" width="20" height="20" fill="#FFE066"/>
+          <rect x="160" y="40" width="20" height="20" fill="#FFE066"/>
+        </g>
+        <!-- Row 10 cols 2-9: T H I N K I N G -->
+        <g id="hl-r9" opacity="0">
+          <rect x="40"  y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="60"  y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="80"  y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="100" y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="120" y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="140" y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="160" y="180" width="20" height="20" fill="#FFE066"/>
+          <rect x="180" y="180" width="20" height="20" fill="#FFE066"/>
+        </g>
+
+        <!-- Black cells for AI (hidden initially) — solid black, no text -->
+        <rect id="black-1" x="20"  y="40"  width="20" height="20" fill="#2C2C2A" opacity="0"/>
+        <rect id="black-2" x="180" y="40"  width="20" height="20" fill="#2C2C2A" opacity="0"/>
+        <rect id="black-3" x="20"  y="180" width="20" height="20" fill="#2C2C2A" opacity="0"/>
+        <rect id="black-4" x="200" y="180" width="20" height="20" fill="#2C2C2A" opacity="0"/>
+
+        <!-- Row 3 letters — all fade in L to R, AI cells included -->
+        <!-- M(col0) AI(col1) A(col2) R(col3) E(col4) T(col5) H(col6) E(col7) Y(col8) AI(col9) R(col10) -->
+        <text id="r2-0"  x="10"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">M</text>
+        <text id="r2-1"  x="30"  y="50" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="700" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">AI</text>
+        <text id="r2-2"  x="50"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">A</text>
+        <text id="r2-3"  x="70"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">R</text>
+        <text id="r2-4"  x="90"  y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="r2-5"  x="110" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="r2-6"  x="130" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">H</text>
+        <text id="r2-7"  x="150" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="r2-8"  x="170" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">Y</text>
+        <text id="r2-9"  x="190" y="50" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="700" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">AI</text>
+        <text id="r2-10" x="210" y="50" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">R</text>
+
+        <!-- Row 10 letters — all fade in L to R -->
+        <!-- F(0) AI(1) T(2) H(3) I(4) N(5) K(6) I(7) N(8) G(9) AI(10) N(11) -->
+        <text id="r9-0"  x="10"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">F</text>
+        <text id="r9-1"  x="30"  y="190" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="700" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">AI</text>
+        <text id="r9-2"  x="50"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="r9-3"  x="70"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">H</text>
+        <text id="r9-4"  x="90"  y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">I</text>
+        <text id="r9-5"  x="110" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="r9-6"  x="130" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">K</text>
+        <text id="r9-7"  x="150" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">I</text>
+        <text id="r9-8"  x="170" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="r9-9"  x="190" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">G</text>
+        <text id="r9-10" x="210" y="190" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="700" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">AI</text>
+        <text id="r9-11" x="230" y="190" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+
+      </svg>
+    </div>
+
+    <div class="clue-panel">
+      <div class="spacer"></div>
+      <div class="clue-label">Across</div>
+      <div class="clue-row"><span class="clue-num">1</span><span class="clue-text">Lorem ipsum dolor sit amet (4,5)</span></div>
+      <div class="clue-row"><span class="clue-num">7</span><span class="clue-text">Adipiscing elit sed do tempor (3)</span></div>
+      <div class="clue-row"><span class="clue-num">10</span><span class="clue-text">Incididunt ut labore dolore magna (6)</span></div>
+      <div class="clue-row"><span class="clue-num">13</span><span class="clue-text">Aliqua ut enim ad minim (4)</span></div>
+      <div class="clue-row"><span class="clue-num">15</span><span class="clue-text">Nostrud exercitation ullamco laboris nisi (5)</span></div>
+    </div>
+  </div>
+</div>
+</div>
+<hr class="section-divider">
+<div class="puzzle-section" id="puzzle-5">
+<div class="preamble-card">
+  <p class="puzzle-title-pre">Concept puzzle 5: It's Good to Be the King</p>
+  <p class="puzzle-byline">by Gilead</p>
+  <hr class="preamble-rule">
+  <p class="preamble-text">Fifteen of the puzzle’s clues contain extra letters that will, when combined, direct you to misbehaving parts of the grid.<br><br>Once these sections of the grid are put in order, you will be able to identify the individual whose inaugural (and seasonally appropriate) offering might have shared this puzzle’s title.</p>
+</div>
+<div class="card">
+  <button class="replay-btn" onclick="window._replay5()">Replay ↺</button>
+  <div class="layout">
+    <div class="grid-area">
+      <svg id="maingrid" width="100%" viewBox="0 0 330 330" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="330" height="330" fill="#fff" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!-- thin grid lines vertical -->
+        <line x1="22"  y1="0" x2="22"  y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="44"  y1="0" x2="44"  y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="66"  y1="0" x2="66"  y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="88"  y1="0" x2="88"  y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="110" y1="0" x2="110" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="132" y1="0" x2="132" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="154" y1="0" x2="154" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="176" y1="0" x2="176" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="198" y1="0" x2="198" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="220" y1="0" x2="220" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="242" y1="0" x2="242" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="264" y1="0" x2="264" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="286" y1="0" x2="286" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="308" y1="0" x2="308" y2="330" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- thin grid lines horizontal -->
+        <line x1="0" y1="22"  x2="330" y2="22"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="44"  x2="330" y2="44"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="66"  x2="330" y2="66"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="88"  x2="330" y2="88"  stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="110" x2="330" y2="110" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="132" x2="330" y2="132" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="154" x2="330" y2="154" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="176" x2="330" y2="176" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="198" x2="330" y2="198" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="220" x2="330" y2="220" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="242" x2="330" y2="242" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="264" x2="330" y2="264" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="286" x2="330" y2="286" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+        <line x1="0" y1="308" x2="330" y2="308" stroke="rgba(0,0,0,0.1)" stroke-width="0.4"/>
+
+        <!-- barrier lines -->
+        <line x1="22"  y1="0"   x2="22"  y2="22"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="0"   x2="176" y2="22"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="22"  x2="44"  y2="44"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="22"  x2="220" y2="44"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="22"  y1="44"  x2="22"  y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="44"  x2="132" y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="44"  x2="264" y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="88"  y1="66"  x2="88"  y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="66"  x2="132" y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="66"  x2="264" y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="88"  x2="44"  y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="198" y1="88"  x2="198" y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="286" y1="88"  x2="286" y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="88"  y1="110" x2="88"  y2="132" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="110" x2="132" y2="132" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="132" x2="66"  y2="154" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="132" x2="220" y2="154" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="286" y1="132" x2="286" y2="154" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="22"  y1="154" x2="22"  y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="154" x2="176" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="110" y1="176" x2="110" y2="198" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="176" x2="176" y2="198" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="198" x2="66"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="198" x2="132" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="198" x2="264" y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="110" y1="220" x2="110" y2="242" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="220" x2="176" y2="242" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="242" x2="66"  y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="242" x2="132" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="110" y1="264" x2="110" y2="286" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="264" x2="220" y2="286" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="264" x2="264" y2="286" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="286" x2="66"  y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="198" y1="286" x2="198" y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="308" y1="286" x2="308" y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="308" x2="44"  y2="330" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="308" x2="132" y2="330" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="242" y1="308" x2="242" y2="330" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="198" x2="22"  y2="198" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="0"   y1="44"  x2="22"  y2="44"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="22"  y1="242" x2="44"  y2="242" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="22"  y1="110" x2="44"  y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="22"  y1="132" x2="44"  y2="132" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="220" x2="66"  y2="220" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="66"  x2="66"  y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="44"  y1="264" x2="66"  y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="44"  x2="88"  y2="44"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="286" x2="88"  y2="286" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="66"  y1="132" x2="88"  y2="132" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="88"  y1="66"  x2="110" y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="88"  y1="264" x2="110" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="110" y1="242" x2="132" y2="242" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="110" y1="88"  x2="132" y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="110" x2="154" y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="132" y1="308" x2="154" y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="154" y1="110" x2="176" y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="154" y1="308" x2="176" y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="154" y1="154" x2="176" y2="154" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="242" x2="198" y2="242" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="88"  x2="198" y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="176" y1="176" x2="198" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="198" y1="22"  x2="220" y2="22"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="198" y1="264" x2="220" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="66"  x2="242" y2="66"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="264" x2="242" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="220" y1="176" x2="242" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="242" y1="110" x2="264" y2="110" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="242" y1="308" x2="264" y2="308" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="264" x2="286" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="264" y1="88"  x2="286" y2="88"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="286" y1="22"  x2="308" y2="22"  stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="286" y1="286" x2="308" y2="286" stroke="#2C2C2A" stroke-width="2"/>
+        <!-- word-break barriers (fixed) -->
+        <line x1="88"  y1="176" x2="110" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="88"  y1="264" x2="110" y2="264" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="198" y1="176" x2="220" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+        <line x1="308" y1="176" x2="330" y2="176" stroke="#2C2C2A" stroke-width="2"/>
+
+        <!--
+          Colour highlight rects — hidden initially, shown after jumble.
+          Cell = 22px. Col5=x88-110 (cells r0-r14 y=r*22 to (r+1)*22)
+          BUTTONWOOD: col5 rows 0-9  → pale blue  #C8E6FF
+          BELLO:      col5 rows 10-14 → pale green #C8F0D0
+          SCHUMPETER: col10 rows 0-9  → pale orange #FFE0C0
+          LEXIN:      col10 rows 10-14 → pale lavender #E0D0FF
+          GTON:       col15 rows 0-3  → pale lavender #E0D0FF
+          CHARLEMAGNE:col15 rows 4-14 → yellow #FFE066
+        -->
+        <g id="highlights" opacity="0">
+          <!-- BUTTONWOOD col5 rows 0-9 -->
+          <rect x="88" y="0"   width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="22"  width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="44"  width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="66"  width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="88"  width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="110" width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="132" width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="154" width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="176" width="22" height="22" fill="#C8E6FF"/>
+          <rect x="88" y="198" width="22" height="22" fill="#C8E6FF"/>
+          <!-- BELLO col5 rows 10-14 -->
+          <rect x="88" y="220" width="22" height="22" fill="#C8F0D0"/>
+          <rect x="88" y="242" width="22" height="22" fill="#C8F0D0"/>
+          <rect x="88" y="264" width="22" height="22" fill="#C8F0D0"/>
+          <rect x="88" y="286" width="22" height="22" fill="#C8F0D0"/>
+          <rect x="88" y="308" width="22" height="22" fill="#C8F0D0"/>
+          <!-- SCHUMPETER col10 rows 0-9 -->
+          <rect x="198" y="0"   width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="22"  width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="44"  width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="66"  width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="88"  width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="110" width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="132" width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="154" width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="176" width="22" height="22" fill="#FFE0C0"/>
+          <rect x="198" y="198" width="22" height="22" fill="#FFE0C0"/>
+          <!-- LEXIN col10 rows 10-14 -->
+          <rect x="198" y="220" width="22" height="22" fill="#E0D0FF"/>
+          <rect x="198" y="242" width="22" height="22" fill="#E0D0FF"/>
+          <rect x="198" y="264" width="22" height="22" fill="#E0D0FF"/>
+          <rect x="198" y="286" width="22" height="22" fill="#E0D0FF"/>
+          <rect x="198" y="308" width="22" height="22" fill="#E0D0FF"/>
+          <!-- GTON col15 rows 0-3 -->
+          <rect x="308" y="0"   width="22" height="22" fill="#E0D0FF"/>
+          <rect x="308" y="22"  width="22" height="22" fill="#E0D0FF"/>
+          <rect x="308" y="44"  width="22" height="22" fill="#E0D0FF"/>
+          <rect x="308" y="66"  width="22" height="22" fill="#E0D0FF"/>
+          <!-- CHARLEMAGNE col15 rows 4-14 -->
+          <rect x="308" y="88"  width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="110" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="132" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="154" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="176" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="198" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="220" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="242" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="264" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="286" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="308" width="22" height="22" fill="#FFE066"/>
+        </g>
+
+        <!--
+          Letter text elements — one per cell per column, identified by id.
+          Col5:  c5-r0 .. c5-r14  at x=99
+          Col10: c10-r0 .. c10-r14 at x=209
+          Col15: c15-r0 .. c15-r14 at x=319
+          y centres: r*22+11
+          All start hidden (opacity=0), faded in, then jumbled, then settled.
+        -->
+
+        <!-- CHARLEMAGNE highlight group — drawn separately so it can stay bright -->
+        <g id="charlemagne-highlight" opacity="0">
+          <rect x="308" y="88"  width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="110" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="132" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="154" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="176" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="198" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="220" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="242" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="264" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="286" width="22" height="22" fill="#FFE066"/>
+          <rect x="308" y="308" width="22" height="22" fill="#FFE066"/>
+        </g>
+
+        <!-- Col 5 -->
+        <text id="c5-r0"  x="99" y="11"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">D</text>
+        <text id="c5-r1"  x="99" y="33"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">O</text>
+        <text id="c5-r2"  x="99" y="55"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">U</text>
+        <text id="c5-r3"  x="99" y="77"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">B</text>
+        <text id="c5-r4"  x="99" y="99"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">L</text>
+        <text id="c5-r5"  x="99" y="121" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">O</text>
+        <text id="c5-r6"  x="99" y="143" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">O</text>
+        <text id="c5-r7"  x="99" y="165" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="c5-r8"  x="99" y="187" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">B</text>
+        <text id="c5-r9"  x="99" y="209" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c5-r10" x="99" y="231" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">L</text>
+        <text id="c5-r11" x="99" y="253" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="c5-r12" x="99" y="275" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="c5-r13" x="99" y="297" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">O</text>
+        <text id="c5-r14" x="99" y="319" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">W</text>
+
+        <!-- Col 10 -->
+        <text id="c10-r0"  x="209" y="11"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">I</text>
+        <text id="c10-r1"  x="209" y="33"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="c10-r2"  x="209" y="55"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c10-r3"  x="209" y="77"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">X</text>
+        <text id="c10-r4"  x="209" y="99"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">P</text>
+        <text id="c10-r5"  x="209" y="121" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c10-r6"  x="209" y="143" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">R</text>
+        <text id="c10-r7"  x="209" y="165" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="c10-r8"  x="209" y="187" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">M</text>
+        <text id="c10-r9"  x="209" y="209" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">U</text>
+        <text id="c10-r10" x="209" y="231" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">L</text>
+        <text id="c10-r11" x="209" y="253" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">C</text>
+        <text id="c10-r12" x="209" y="275" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">H</text>
+        <text id="c10-r13" x="209" y="297" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c10-r14" x="209" y="319" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">S</text>
+
+        <!-- Col 15 -->
+        <text id="c15-r0"  x="319" y="11"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">M</text>
+        <text id="c15-r1"  x="319" y="33"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">O</text>
+        <text id="c15-r2"  x="319" y="55"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">R</text>
+        <text id="c15-r3"  x="319" y="77"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">T</text>
+        <text id="c15-r4"  x="319" y="99"  text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">G</text>
+        <text id="c15-r5"  x="319" y="121" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">A</text>
+        <text id="c15-r6"  x="319" y="143" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">G</text>
+        <text id="c15-r7"  x="319" y="165" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c15-r8"  x="319" y="187" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">C</text>
+        <text id="c15-r9"  x="319" y="209" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">H</text>
+        <text id="c15-r10" x="319" y="231" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">A</text>
+        <text id="c15-r11" x="319" y="253" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="c15-r12" x="319" y="275" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">N</text>
+        <text id="c15-r13" x="319" y="297" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">E</text>
+        <text id="c15-r14" x="319" y="319" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600" font-family="-apple-system,sans-serif" fill="#2C2C2A" opacity="0">L</text>
+
+      </svg>
+    </div>
+
+    <div class="clue-panel">
+      <div class="spacer"></div>
+      <div class="clue-label">Across</div>
+      <div class="clue-row"><span class="clue-num">1</span><span class="clue-text">Lorem <span id="hl-1" style="border-radius:2px;padding:0 1px;font-weight:700;">F</span>psum dolor sit amet (4,5)</span></div>
+      <div class="clue-row"><span class="clue-num">7</span><span class="clue-text">Ad<span id="hl-2" style="border-radius:2px;padding:0 1px;font-weight:700;">I</span>piscing elit sed do tempor (3)</span></div>
+      <div class="clue-row"><span class="clue-num">10</span><span class="clue-text">Inc<span id="hl-3" style="border-radius:2px;padding:0 1px;font-weight:700;">F</span>didunt ut labore dolore magna (6)</span></div>
+      <div class="clue-row"><span class="clue-num">13</span><span class="clue-text">Aliqua u<span id="hl-4" style="border-radius:2px;padding:0 1px;font-weight:700;">T</span> enim ad minim (4)</span></div>
+      <div class="clue-row"><span class="clue-num">15</span><span class="clue-text">Nos<span id="hl-5" style="border-radius:2px;padding:0 1px;font-weight:700;">H</span>rud exercitation ullamco laboris nisi (5)</span></div>
+    </div>
+  </div>
+
+  <!-- Secret message area — close to bottom of grid -->
+  <div id="secret-area" style="margin-top:4px; padding: 0 0 4px 0; display:flex; align-items:center; min-height:24px;">
+    <span style="font-size:13px; font-weight:700; color:#2C2C2A; white-space:nowrap; flex-shrink:0; line-height:1;">Secret message:&nbsp;</span>
+    <span id="secret-phrase-wrap" style="position:relative; display:inline-block; min-width:220px; height:18px; line-height:1;">
+      <span id="sm-1" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.5s; white-space:nowrap; border-radius:2px; padding:0 1px;"></span>
+      <span id="sm-2" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.5s; white-space:nowrap; border-radius:2px; padding:0 1px;"></span>
+      <span id="sm-3" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.5s; white-space:nowrap; border-radius:2px; padding:0 1px;"></span>
+      <span id="sm-4" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.5s; white-space:nowrap; border-radius:2px; padding:0 1px;"></span>
+      <span id="sm-5" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.5s; white-space:nowrap; border-radius:2px; padding:0 1px;"></span>
+      <span id="sm-rest" style="position:absolute; top:3px; font-size:13px; font-weight:700; color:#2C2C2A; opacity:0; transition:opacity 0.6s; white-space:nowrap;"></span>
+    </span>
+  </div>
+</div>
+</div>
+
+<script>
+
+/* === Puzzle 1: Stock Phrases === */
+(function() {
+var timers = [];
+
+function clearAll() {
+  timers.forEach(clearTimeout);
+  timers = [];
+
+  ['clue-grovel','clue-tuba','clue-heroin'].forEach(function(id) {
+    document.getElementById(id).classList.remove('active');
+  });
+  ['hl-grovel','hl-tuba','hl-heroin'].forEach(function(id) {
+    document.getElementById(id).setAttribute('opacity','0');
+  });
+
+  var allLetters = ['g-G','g-R','g-O','g-V','g-E','g-L',
+                    'g-A1','g-B1','g-U1','g-T1',
+                    'g-H','g-E2','g-R2','g-O2','g-I','g-N','g-Eadd'];
+  allLetters.forEach(function(id) {
+    var el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.setAttribute('opacity','0');
+  });
+
+  /* reset TUBA letters back to T U B A */
+  var tubaIds  = ['g-A1','g-B1','g-U1','g-T1'];
+  var tubaOrig = ['T','U','B','A'];
+  tubaIds.forEach(function(id,i){ document.getElementById(id).textContent = tubaOrig[i]; });
+
+  /* reset overflow — no movement, just opacity */
+  var flL = document.getElementById('fl-L');
+  var flE = document.getElementById('fl-E');
+  var phrase = document.getElementById('phrase-el');
+  flL.style.transition = 'none';   flL.style.opacity = '0';
+  flE.style.transition = 'none';   flE.style.opacity = '0';
+  phrase.style.transition = 'none'; phrase.style.opacity = '0';
+}
+
+function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+function showSVG(id) { document.getElementById(id).setAttribute('opacity','1'); }
+function fadeSVG(id) {
+  var el = document.getElementById(id);
+  el.style.transition = 'opacity 0.4s';
+  el.setAttribute('opacity','0');
+}
+function showEl(id) {
+  var el = document.getElementById(id);
+  el.style.transition = 'opacity 0.4s';
+  el.style.opacity = '1';
+}
+function hideEl(id) {
+  var el = document.getElementById(id);
+  el.style.transition = 'opacity 0.4s';
+  el.style.opacity = '0';
+}
+function addCls(id, c) { document.getElementById(id).classList.add(c); }
+function remCls(id, c) { document.getElementById(id).classList.remove(c); }
+function setAttr(id,a,v){ document.getElementById(id).setAttribute(a,v); }
+
+function measureLetterPositions() {
+  /* Temporarily make the phrase visible at opacity 0.001 so it's rendered
+     and we can measure character positions via Range */
+  var phrase = document.getElementById('phrase-el');
+  phrase.style.transition = 'none';
+  phrase.style.opacity = '0.001';
+
+  var wrap = phrase.parentNode;
+  var wrapRect = wrap.getBoundingClientRect();
+
+  /* Find the text nodes inside phrase-el. Structure is:
+     "P" + <span>L</span> + "AYING FTS" + <span>E</span>
+     The last <span> contains the E we want to measure. */
+  var spans = phrase.querySelectorAll('span');
+  var eSpan = spans[spans.length - 1]; /* last span = the E */
+  var lSpan = spans[0];                /* first span = the L */
+
+  var eRect = eSpan.getBoundingClientRect();
+  var lRect = lSpan.getBoundingClientRect();
+
+  var lLeft = lRect.left - wrapRect.left;
+  var eLeft = eRect.left - wrapRect.left;
+
+  document.getElementById('fl-L').style.left = lLeft + 'px';
+  document.getElementById('fl-E').style.left = eLeft + 'px';
+
+  /* Hide phrase again */
+  phrase.style.opacity = '0';
+}
+
+function runAnimation() {
+  clearAll();
+  measureLetterPositions();
+
+  /* Re-enable transitions after clearAll has finished zeroing things */
+  at(50, function() {
+    ['fl-L','fl-E','phrase-el'].forEach(function(id) {
+      document.getElementById(id).style.transition = 'opacity 0.4s';
+    });
+  });
+
+  /* ── STEP 1: GROVEL (down clue) ── */
+  at(600, function() {
+    addCls('clue-grovel','active');
+    setAttr('hl-grovel','opacity','0.55');
+  });
+
+  /* G R O V E appear in grid cells */
+  ['g-G','g-R','g-O','g-V','g-E'].forEach(function(id,i) {
+    at(1300 + i*220, function() { showSVG(id); });
+  });
+
+  /* L appears in grid (red, in the overflow cell) */
+  at(1300 + 5*220, function() { showSVG('g-L'); });
+
+  /* L fades from grid; simultaneously fades in at fixed position in overflow */
+  at(1300 + 5*220 + 700, function() {
+    fadeSVG('g-L');
+    showEl('fl-L');
+  });
+
+  at(3900, function() {
+    remCls('clue-grovel','active');
+    setAttr('hl-grovel','opacity','0');
+  });
+
+  /* ── STEP 2: TUBA → ABUT (across clue) ── */
+  at(4300, function() {
+    addCls('clue-tuba','active');
+    setAttr('hl-tuba','opacity','0.55');
+  });
+
+  /* Show T U B A one by one */
+  ['g-A1','g-B1','g-U1','g-T1'].forEach(function(id,i) {
+    at(5000 + i*200, function() { showSVG(id); });
+  });
+
+  /* Flash off then replace with A B U T */
+  at(6200, function() {
+    var ids      = ['g-A1','g-B1','g-U1','g-T1'];
+    var reversed = ['A','B','U','T'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      el.style.transition = 'opacity 0.15s';
+      el.setAttribute('opacity','0');
+    });
+    setTimeout(function() {
+      ids.forEach(function(id,i) {
+        var el = document.getElementById(id);
+        el.textContent = reversed[i];
+        el.style.transition = 'opacity 0.25s';
+        el.setAttribute('opacity','1');
+      });
+    }, 200);
+  });
+
+  at(7200, function() {
+    remCls('clue-tuba','active');
+    setAttr('hl-tuba','opacity','0');
+  });
+
+  /* ── STEP 3: HEROINE (across clue) ── */
+  at(7600, function() {
+    addCls('clue-heroin','active');
+    setAttr('hl-heroin','opacity','0.55');
+  });
+
+  /* H E R O I N appear */
+  ['g-H','g-E2','g-R2','g-O2','g-I','g-N'].forEach(function(id,i) {
+    at(8300 + i*200, function() { showSVG(id); });
+  });
+
+  /* Extra E appears in grid (red, col6 = directly next to N) */
+  at(9600, function() { showSVG('g-Eadd'); });
+
+  /* Copy of E floats to overflow — BEFORE clue unhighlights */
+  at(10300, function() { showEl('fl-E'); });
+
+  at(10900, function() {
+    remCls('clue-heroin','active');
+    setAttr('hl-heroin','opacity','0');
+  });
+
+  /* ── STEP 4: Phrase fades in; fl-L and fl-E fade out simultaneously ── */
+  at(11600, function() {
+    var phrase = document.getElementById('phrase-el');
+    phrase.style.transition = 'opacity 0.6s';
+    phrase.style.opacity = '1';
+    /* fade out the individual letters at the same time so there's no jump */
+    hideEl('fl-L');
+    hideEl('fl-E');
+  });
+}
+
+  window._replay1 = function() { runAnimation(); };
+  window.addEventListener('load', function() { try { resetAll(); } catch(e) { try { clearAll(); } catch(e2) {} } });
+})();
+
+/* === Puzzle 2: Big Mac Index === */
+(function() {
+var timers = [];
+function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+var CELL = 20;
+var GRID_W = 260;
+
+function hl(id) {
+  var el = document.getElementById(id);
+  if (el) el.setAttribute('opacity','1');
+}
+
+var hlSteps = [
+  { row: 0,  ids: ['hl-0-2','hl-0-3','hl-0-4','hl-0-5','hl-0-6'] },
+  { row: 2,  ids: ['hl-2-3','hl-2-4','hl-2-5','hl-2-6','hl-2-7','hl-2-8','hl-2-9'] },
+  { row: 4,  ids: ['hl-4-5','hl-4-6','hl-4-7'] },
+  { row: 6,  ids: ['hl-6-3','hl-6-4','hl-6-5'] },
+  { row: 8,  ids: ['hl-8-4','hl-8-5','hl-8-6'] },
+  { row: 10, ids: ['hl-10-5','hl-10-6','hl-10-7','hl-10-8','hl-10-9'] },
+  { row: 12, ids: ['hl-12-4','hl-12-5','hl-12-6','hl-12-7','hl-12-8'] }
+];
+
+/*
+  Vertical slide (dy) + horizontal cylinder shift (dx):
+  row0  → finalRow 4: dy=+80, dx=+2cols=+40
+  row2  → finalRow 5: dy=+60, dx=0
+  row4  → finalRow 3: dy=-20, dx=0
+  row6  → finalRow 6: dy=0,   dx=+2cols=+40
+  row8  → finalRow 9: dy=+20, dx=+1col=+20
+  row10 → finalRow 7: dy=-60, dx=-1col=-20
+  row12 → finalRow 8: dy=-80, dx=0
+*/
+var slideData = [
+  { id: 'rg-0',  dy:  80, dx:  40 },
+  { id: 'rg-2',  dy:  60, dx:   0 },
+  { id: 'rg-4',  dy: -20, dx:   0 },
+  { id: 'rg-6',  dy:   0, dx:  40 },
+  { id: 'rg-8',  dy:  20, dx:  20 },
+  { id: 'rg-10', dy: -60, dx: -20 },
+  { id: 'rg-12', dy: -80, dx:   0 },
+];
+
+/*
+  Cylinder approach: for each row group we create a clone offset by
+  +260px or -260px horizontally, so as one copy slides off the edge
+  the other wraps in from the opposite side.
+  Both the original and the clone are translated by the same (dx, dy),
+  so the clone is always at (dx ± 260, dy).
+  We use a <use> element pointing at the group.
+*/
+
+function createClones() {
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var clipGroup = document.querySelector('#maingrid [clip-path]');
+
+  slideData.forEach(function(d) {
+    if (d.dx === 0) return; // no horizontal shift, no wrap needed
+    var g = document.getElementById(d.id);
+    if (!g) return;
+
+    // Determine which direction the row shifts
+    // If dx > 0 (shifts right), wrap copy comes from left: offset = dx - 260
+    // If dx < 0 (shifts left), wrap copy comes from right: offset = dx + 260
+    var wrapOffset = d.dx > 0 ? d.dx - GRID_W : d.dx + GRID_W;
+
+    // Create a clone group
+    var clone = document.createElementNS(svgNS, 'g');
+    clone.setAttribute('id', d.id + '-clone');
+    clone.setAttribute('class', 'row-group');
+    // Copy innerHTML
+    clone.innerHTML = g.innerHTML;
+    // Offset the clone's initial transform by wrapOffset horizontally
+    clone.setAttribute('transform', 'translate(' + (wrapOffset - d.dx) + ',0)');
+    clipGroup.appendChild(clone);
+    d.cloneOffset = wrapOffset - d.dx; // store for reset
+  });
+}
+
+function resetAll() {
+  hlSteps.forEach(function(s) {
+    s.ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.setAttribute('opacity','0');
+    });
+  });
+
+  // Remove clones
+  slideData.forEach(function(d) {
+    var clone = document.getElementById(d.id + '-clone');
+    if (clone) clone.parentNode.removeChild(clone);
+    d.cloneOffset = undefined;
+  });
+
+  // Reset down letters
+  var dnIds = ['dn-4-0','dn-4-12','dn-5-0','dn-5-12','dn-6-0','dn-6-12',
+               'dn-7-0','dn-7-12','dn-8-0','dn-8-12','dn-9-0','dn-9-12',
+               'dn-10-0','dn-10-12'];
+  dnIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity','0'); }
+  });
+
+  // Reset row group transforms and hide all letters
+  slideData.forEach(function(d) {
+    var g = document.getElementById(d.id);
+    if (g) {
+      g.style.transition = 'none';
+      g.setAttribute('transform', 'translate(0,0)');
+      // Hide all text elements within the group
+      var texts = g.querySelectorAll('text');
+      texts.forEach(function(t) {
+        t.style.transition = 'none';
+        t.setAttribute('opacity','0');
+      });
+    }
+  });
+}
+
+function runAnimation() {
+  clearTimers();
+  resetAll();
+
+  var t = 400;
+  var hlDelay = 800;
+
+  // Step 1: highlight rows one by one, permanently
+  hlSteps.forEach(function(step) {
+    at(t, (function(s){ return function() {
+      s.ids.forEach(function(id) { hl(id); });
+    }; })(step));
+    t += hlDelay;
+  });
+
+  t += 600;
+
+  // Step 2a: vertical slide only (dy, no dx yet)
+  at(t, function() {
+    slideData.forEach(function(d) {
+      var g = document.getElementById(d.id);
+      if (g) {
+        g.style.transition = 'transform 0.9s cubic-bezier(0.4,0,0.2,1)';
+        g.setAttribute('transform', 'translate(0,' + d.dy + ')');
+      }
+    });
+  });
+
+  t += 1600; // wait for vertical slide to finish + pause
+
+  // Step 2b: horizontal cylinder shift
+  at(t, function() {
+    createClones();
+    setTimeout(function() {
+      slideData.forEach(function(d) {
+        if (d.dx === 0) return;
+        var g = document.getElementById(d.id);
+        if (g) {
+          g.style.transition = 'transform 0.9s cubic-bezier(0.4,0,0.2,1)';
+          g.setAttribute('transform', 'translate(' + d.dx + ',' + d.dy + ')');
+        }
+        var clone = document.getElementById(d.id + '-clone');
+        if (clone) {
+          clone.style.transition = 'transform 0.9s cubic-bezier(0.4,0,0.2,1)';
+          var cloneFinalX = (d.cloneOffset !== undefined ? d.cloneOffset : 0) + d.dx;
+          clone.setAttribute('transform', 'translate(' + cloneFinalX + ',' + d.dy + ')');
+        }
+      });
+    }, 30);
+  });
+
+  // Step 3: reveal LUNCHIS / NOTFREE letters after horizontal shift settles
+  t += 1600;
+  at(t, function() {
+    var dnIds = ['dn-4-0','dn-4-12','dn-5-0','dn-5-12','dn-6-0','dn-6-12',
+                 'dn-7-0','dn-7-12','dn-8-0','dn-8-12','dn-9-0','dn-9-12',
+                 'dn-10-0','dn-10-12'];
+    dnIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.style.transition = 'opacity 0.6s';
+        el.setAttribute('opacity','1');
+      }
+    });
+  });
+}
+
+  window._replay2 = function() { runAnimation(); };
+  window.addEventListener('load', function() { try { resetAll(); } catch(e) { try { clearAll(); } catch(e2) {} } });
+})();
+
+/* === Puzzle 3: Leader Lines === */
+(function() {
+var timers = [];
+function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+function fadeIn(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.style.transition = 'opacity 0.5s';
+  el.setAttribute('opacity', '1');
+}
+
+function resetAll() {
+  for (var i = 1; i <= 5; i++) {
+    var el = document.getElementById('pair-' + i);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity', '0'); }
+  }
+  for (var j = 1; j <= 10; j++) {
+    var el = document.getElementById('letters-' + j);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity', '0'); }
+  }
+  var yh = document.getElementById('yellow-highlights');
+  if (yh) { yh.style.transition = 'none'; yh.setAttribute('opacity', '0'); }
+}
+
+function runAnimation() {
+  clearTimers();
+  resetAll();
+  at(50, function() {
+    // Pairs fade in first
+    at(600,  function() { fadeIn('pair-1'); });
+    at(1400, function() { fadeIn('pair-2'); });
+    at(2200, function() { fadeIn('pair-3'); });
+    at(3000, function() { fadeIn('pair-4'); });
+    at(3800, function() { fadeIn('pair-5'); });
+    // Letter groups follow, 700ms apart
+    var base = 4800;
+    at(base + 0*700,  function() { fadeIn('letters-1'); });
+    at(base + 1*700,  function() { fadeIn('letters-2'); });
+    at(base + 2*700,  function() { fadeIn('letters-3'); });
+    at(base + 3*700,  function() { fadeIn('letters-4'); });
+    at(base + 4*700,  function() { fadeIn('letters-5'); });
+    at(base + 5*700,  function() { fadeIn('letters-6'); });
+    at(base + 6*700,  function() { fadeIn('letters-7'); });
+    at(base + 7*700,  function() { fadeIn('letters-8'); });
+    at(base + 8*700,  function() { fadeIn('letters-9'); });
+    at(base + 9*700,  function() { fadeIn('letters-10'); });
+    at(base + 9*700 + 600, function() { fadeIn('yellow-highlights'); });
+  });
+}
+
+  window._replay3 = function() { runAnimation(); };
+  window.addEventListener('load', function() { try { resetAll(); } catch(e) { try { clearAll(); } catch(e2) {} } });
+})();
+
+/* === Puzzle 4: Black Boxes === */
+(function() {
+var timers = [];
+function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+// All letter IDs in fade-in order: row 3 L-R, then row 10 L-R
+var r2ids = ['r2-0','r2-1','r2-2','r2-3','r2-4','r2-5','r2-6','r2-7','r2-8','r2-9','r2-10'];
+var r9ids = ['r9-0','r9-1','r9-2','r9-3','r9-4','r9-5','r9-6','r9-7','r9-8','r9-9','r9-10','r9-11'];
+var allLetterIds = r2ids.concat(r9ids);
+
+function showEl(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.transition = 'opacity 0.35s'; el.setAttribute('opacity','1'); }
+}
+function hideEl(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.transition = 'opacity 0.35s'; el.setAttribute('opacity','0'); }
+}
+function showG(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.transition = 'opacity 0.5s'; el.setAttribute('opacity','1'); }
+}
+
+function resetAll() {
+  allLetterIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity','0'); }
+  });
+  ['black-1','black-2','black-3','black-4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity','0'); }
+  });
+  ['hl-r2','hl-r9'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.setAttribute('opacity','0'); }
+  });
+}
+
+function runAnimation() {
+  clearTimers();
+  resetAll();
+
+  var STEP = 160; // ms between each letter
+
+  // Step 1: letters fade in L-R, row 3 then row 10
+  allLetterIds.forEach(function(id, i) {
+    at(400 + i * STEP, function() { showEl(id); });
+  });
+
+  // Step 2: hold, then AI cells black out (AI text becomes hidden, black rect appears)
+  var blackoutStart = 400 + allLetterIds.length * STEP + 800;
+  at(blackoutStart, function() {
+    // Fade out AI letter text
+    hideEl('r2-1');  hideEl('r2-9');
+    hideEl('r9-1');  hideEl('r9-10');
+    // Fade in black rects
+    ['black-1','black-2','black-3','black-4'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.style.transition = 'opacity 0.5s'; el.setAttribute('opacity','1'); }
+    });
+  });
+
+  // Step 3: yellow highlights appear after blackout settles
+  var hlStart = blackoutStart + 900;
+  at(hlStart, function() {
+    showG('hl-r2');
+    showG('hl-r9');
+  });
+}
+
+  window._replay4 = function() { runAnimation(); };
+  window.addEventListener('load', function() { try { resetAll(); } catch(e) { try { clearAll(); } catch(e2) {} } });
+})();
+
+/* === Puzzle 5: It's Good to Be the King === */
+(function() {
+var timers = [];
+function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+
+var c5Map = [
+  {src:0, tgt:9, dy:198},
+  {src:1, tgt:4, dy:66},
+  {src:2, tgt:1, dy:-22},
+  {src:3, tgt:0, dy:-66},
+  {src:4, tgt:12, dy:176},
+  {src:5, tgt:7, dy:44},
+  {src:6, tgt:8, dy:44},
+  {src:7, tgt:5, dy:-44},
+  {src:8, tgt:10, dy:44},
+  {src:9, tgt:11, dy:44},
+  {src:10, tgt:13, dy:66},
+  {src:11, tgt:2, dy:-198},
+  {src:12, tgt:3, dy:-198},
+  {src:13, tgt:14, dy:22},
+  {src:14, tgt:6, dy:-176}
+];
+var c10Map = [
+  {src:0, tgt:13, dy:286},
+  {src:1, tgt:14, dy:286},
+  {src:2, tgt:6, dy:88},
+  {src:3, tgt:12, dy:198},
+  {src:4, tgt:5, dy:22},
+  {src:5, tgt:8, dy:66},
+  {src:6, tgt:9, dy:66},
+  {src:7, tgt:7, dy:0},
+  {src:8, tgt:4, dy:-88},
+  {src:9, tgt:3, dy:-132},
+  {src:10, tgt:10, dy:0},
+  {src:11, tgt:1, dy:-220},
+  {src:12, tgt:2, dy:-220},
+  {src:13, tgt:11, dy:-44},
+  {src:14, tgt:0, dy:-308}
+];
+var c15Map = [
+  {src:0, tgt:10, dy:220},
+  {src:1, tgt:2, dy:22},
+  {src:2, tgt:7, dy:110},
+  {src:3, tgt:1, dy:-44},
+  {src:4, tgt:0, dy:-88},
+  {src:5, tgt:6, dy:22},
+  {src:6, tgt:12, dy:132},
+  {src:7, tgt:9, dy:44},
+  {src:8, tgt:4, dy:-88},
+  {src:9, tgt:5, dy:-88},
+  {src:10, tgt:11, dy:22},
+  {src:11, tgt:3, dy:-176},
+  {src:12, tgt:13, dy:22},
+  {src:13, tgt:14, dy:22},
+  {src:14, tgt:8, dy:-132}
+];
+
+function showEl(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.style.transition = 'opacity 0.4s';
+  el.setAttribute('opacity','1');
+}
+
+function fadeInColumn(col, delay) {
+  for (var r = 0; r < 15; r++) {
+    (function(row) {
+      at(delay + row * 60, function() { showEl(col + '-r' + row); });
+    })(r);
+  }
+}
+
+function slideColumn(col, mapping, startMs) {
+  mapping.forEach(function(m) {
+    at(startMs, function() {
+      var el = document.getElementById(col + '-r' + m.src);
+      if (!el) return;
+      el.style.transition = 'transform 0.9s cubic-bezier(0.4,0,0.2,1)';
+      el.setAttribute('transform', 'translate(0,' + m.dy + ')');
+    });
+  });
+}
+
+function resetAll() {
+  var originals = {
+    c5:  'DOUBLOONBELTTOW',
+    c10: 'INEXPERTMULCHES',
+    c15: 'MORTGAGECHANNEL'
+  };
+  ['c5','c10','c15'].forEach(function(col) {
+    for (var r = 0; r < 15; r++) {
+      var el = document.getElementById(col + '-r' + r);
+      if (el) {
+        el.style.transition = 'none';
+        el.setAttribute('opacity','0');
+        el.setAttribute('transform','translate(0,0)');
+        el.textContent = originals[col][r];
+      }
+    }
+  });
+  var hl = document.getElementById('highlights');
+  if (hl) { hl.style.transition = 'none'; hl.setAttribute('opacity','0'); }
+  var charm = document.getElementById('charlemagne-highlight');
+  if (charm) { charm.style.transition = 'none'; charm.setAttribute('opacity','0'); }
+  // Reset secret message
+  for (var i = 1; i <= 5; i++) {
+    var sm = document.getElementById('sm-' + i);
+    if (sm) { sm.style.transition = 'none'; sm.style.opacity = '0'; sm.textContent = ''; sm.style.background = 'transparent'; }
+  }
+  var rest = document.getElementById('sm-rest');
+  if (rest) { rest.style.transition = 'none'; rest.style.opacity = '0'; rest.textContent = ''; }
+}
+
+function measureLetterPositions() {
+  var wrap = document.getElementById('secret-phrase-wrap');
+  var chars = 'FIFTH COLUMNISTS';
+
+  var probe = document.createElement('span');
+  probe.style.cssText = 'position:absolute;font-size:13px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;visibility:hidden;white-space:nowrap;';
+  wrap.appendChild(probe);
+
+  var positions = [];
+  for (var i = 0; i < chars.length; i++) {
+    probe.textContent = chars.slice(0, i);
+    positions.push(probe.offsetWidth);
+  }
+  // COLUMNISTS starts after "FIFTH " (index 6)
+  probe.textContent = 'FIFTH ';
+  var restLeft = probe.offsetWidth;
+  wrap.removeChild(probe);
+
+  // sm-1..sm-5 = F,I,F,T,H at indices 0,1,2,3,4
+  var idxs   = [0,1,2,3,4];
+  var letters = ['F','I','F','T','H'];
+  for (var j = 0; j < 5; j++) {
+    var el = document.getElementById('sm-' + (j+1));
+    if (el) {
+      el.textContent = letters[j];
+      el.style.left  = positions[idxs[j]] + 'px';
+    }
+  }
+  var restEl = document.getElementById('sm-rest');
+  if (restEl) {
+    restEl.textContent = 'COLUMNISTS';
+    restEl.style.left  = restLeft + 'px';
+  }
+}
+
+function runAnimation() {
+  clearTimers();
+  resetAll();
+
+  at(100, function() { measureLetterPositions(); });
+
+  at(300, function() {
+    // Step 1: highlight each of 5 clues, letter flies down, highlight fades off
+    for (var i = 1; i <= 5; i++) {
+      (function(idx) {
+        at(idx * 600, function() {
+          var hl = document.getElementById('hl-' + idx);
+          if (hl) {
+            hl.style.transition = 'background 0.15s';
+            hl.style.background = '#FFE066';
+          }
+          var sm = document.getElementById('sm-' + idx);
+          if (sm) {
+            sm.style.transition = 'opacity 0.5s';
+            sm.style.opacity = '1';
+            sm.style.background = '#FFE066';
+          }
+          setTimeout(function() {
+            if (hl) {
+              hl.style.transition = 'background 0.4s';
+              hl.style.background = 'transparent';
+            }
+            if (sm) {
+              sm.style.transition = 'background 0.4s';
+              sm.style.background = 'transparent';
+            }
+          }, 700);
+        });
+      })(i);
+    }
+
+    // Step 2: COLUMNISTS fades in after all 5 letters have appeared
+    var restStart = 5 * 600 + 600;
+    at(restStart, function() {
+      var rest = document.getElementById('sm-rest');
+      if (rest) {
+        rest.style.transition = 'opacity 0.6s';
+        rest.style.opacity = '1';
+      }
+    });
+
+    // Step 3: fade in columns after COLUMNISTS has appeared
+    var colStart = restStart + 900;
+    fadeInColumn('c5',  colStart);
+    fadeInColumn('c10', colStart + 300);
+    fadeInColumn('c15', colStart + 600);
+
+    // Step 4: slide letters to new positions
+    var slideStart = colStart + 2100;
+    slideColumn('c5',  c5Map,  slideStart);
+    slideColumn('c10', c10Map, slideStart);
+    slideColumn('c15', c15Map, slideStart);
+
+    // Step 5: colour highlights
+    at(slideStart + 1200, function() {
+      var hlEl = document.getElementById('highlights');
+      if (hlEl) {
+        hlEl.style.transition = 'opacity 0.6s';
+        hlEl.setAttribute('opacity','1');
+      }
+    });
+
+    // Step 6: fade everything to 10% except CHARLEMAGNE (col15 tgt rows 4-14)
+    at(slideStart + 2400, function() {
+      // c15Map tells us which src row ends up at which tgt row
+      // CHARLEMAGNE = tgt rows 4-14, GTON = tgt rows 0-3
+      var c15FadeRows  = []; // src rows that end up as GTON (tgt 0-3) → fade
+      var c15KeepRows  = []; // src rows that end up as CHARLEMAGNE (tgt 4-14) → keep
+      c15Map.forEach(function(m) {
+        if (m.tgt <= 3) c15FadeRows.push(m.src);
+        else            c15KeepRows.push(m.src);
+      });
+
+      // Fade all col5 and col10 letters to 10%
+      ['c5','c10'].forEach(function(col) {
+        for (var r = 0; r < 15; r++) {
+          var el = document.getElementById(col + '-r' + r);
+          if (el) { el.style.transition = 'opacity 0.8s'; el.setAttribute('opacity','0.1'); }
+        }
+      });
+      // Fade col15 GTON src rows to 10%
+      c15FadeRows.forEach(function(r) {
+        var el = document.getElementById('c15-r' + r);
+        if (el) { el.style.transition = 'opacity 0.8s'; el.setAttribute('opacity','0.1'); }
+      });
+      // Keep col15 CHARLEMAGNE src rows at full opacity
+      c15KeepRows.forEach(function(r) {
+        var el = document.getElementById('c15-r' + r);
+        if (el) { el.style.transition = 'opacity 0.8s'; el.setAttribute('opacity','1'); }
+      });
+      // Fade colour highlight group to 10%
+      var hlEl = document.getElementById('highlights');
+      if (hlEl) { hlEl.style.transition = 'opacity 0.8s'; hlEl.setAttribute('opacity','0.1'); }
+      // Show CHARLEMAGNE yellow rects at full opacity on top
+      var charm = document.getElementById('charlemagne-highlight');
+      if (charm) { charm.style.transition = 'opacity 0.8s'; charm.setAttribute('opacity','1'); }
+    });
+  });
+}
+
+  window._replay5 = function() { runAnimation(); };
+  window.addEventListener('load', function() { try { resetAll(); } catch(e) { try { clearAll(); } catch(e2) {} } });
+})();
+
+</script>
+</body>
+</html>
